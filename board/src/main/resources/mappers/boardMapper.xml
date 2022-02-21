@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 마이바티스 기본코드 여기서 namespace 는 각각의 매퍼를 구분하는 고유명이 된다 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.board">
+
+	<!-- 게시물 목록 (메퍼에 쿼리 추가) id는 매퍼내 쿼리 구분짓는 고유한이름, resultType은 쿼리 결과의 형태-->
+	<select id="list" resultType="com.board.domain.BoardVO">
+		select
+			bno, title, content, writer, regDate, viewCnt 
+		from board.tbl_board
+	</select>
+</mapper>

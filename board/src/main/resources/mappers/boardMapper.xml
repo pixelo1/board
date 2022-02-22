@@ -6,9 +6,19 @@
 <mapper namespace="com.board.mappers.board">
 
 	<!-- 게시물 목록 (메퍼에 쿼리 추가) id는 매퍼내 쿼리 구분짓는 고유한이름, resultType은 쿼리 결과의 형태-->
+	<!-- resultType는 데이터를 쿼리를 실행한 뒤 결과가 있을 경우에 사용 -->
 	<select id="list" resultType="com.board.domain.BoardVO">
 		select
 			bno, title, content, writer, regDate, viewCnt 
 		from tbl_board
 	</select>
+	
+	<!-- 게시물 작성 -->
+	<!-- 데이터를 넣을 때는 parameterType를 사용 -->
+	<insert id = "write" parameterType = "com.board.domain.BoardVO">
+	insert into
+		tbl_board(title, content, writer)
+			values(#{title}, #{content}, #{writer})
+	</insert>
+	
 </mapper>

@@ -13,22 +13,19 @@ import com.board.dao.BoardDAO;
 import com.board.domain.BoardVO;
 import com.board.service.BoardService;
 
+
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
-	
-	@Inject
-	BoardService service;
-	
-	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public void getList(Model model) throws Exception{
-		
-		List<BoardVO> list = null;
-		list = service.list();
-		
-		model.addAttribute("list", list);
-		// model은 controller 와 view를 연결해주는 역할
-	}
-	
 
+	@Inject
+	private BoardService service;
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void getList(Model model) throws Exception {
+  
+		  List list = null;
+		  list = service.list();
+		  model.addAttribute("list", list);
+ }
 }

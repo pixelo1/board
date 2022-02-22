@@ -9,6 +9,6 @@
 	<select id="list" resultType="com.board.domain.BoardVO">
 		select
 			bno, title, content, writer, regDate, viewCnt 
-		from board.tbl_board
+		from tbl_board
 	</select>
 </mapper>

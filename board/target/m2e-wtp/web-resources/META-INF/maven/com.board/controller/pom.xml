@@ -118,7 +118,7 @@
 		</dependency> 
 		
 		<!-- 스프링과 마리아 DB 연동코드 -->
-		<!-- maria db -->
+<!-- maria db -->
 <dependency>
     <groupId>org.mariadb.jdbc</groupId>
     <artifactId>mariadb-java-client</artifactId>
@@ -144,7 +144,7 @@
     <groupId>org.springframework</groupId>
     <artifactId>spring-jdbc</artifactId>
     <version>${org.springframework-version}</version>
-</dependency>   
+</dependency>
 		<!-- 여기까지 -->    
 	</dependencies>
     <build>

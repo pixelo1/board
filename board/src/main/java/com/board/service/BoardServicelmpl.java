@@ -42,5 +42,9 @@ public class BoardServicelmpl implements BoardService {
 		
 		dao.modify(vo);
 	}
+	//게시물 삭제
+	public void delete(int bno) throws Exception {
+		dao.delete(bno);
+	}
 
 }

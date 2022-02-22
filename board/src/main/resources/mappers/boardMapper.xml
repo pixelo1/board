@@ -42,5 +42,11 @@
 				writer = #{writer}
 			where bno = #{bno}
 	</update>
+	<!-- 게시물 삭제 게시물 번호만 있으면 삭제 가능하기때문에 int 로 설정-->
+	<delete id="delete" parameterType="int">
+		delete
+			from tbl_board
+		where bno = #{bno}
+	</delete>
 	
 </mapper>

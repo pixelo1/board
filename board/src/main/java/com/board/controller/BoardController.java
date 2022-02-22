@@ -79,5 +79,14 @@ public class BoardController {
 		return "redirect:/board/view?bno=" + vo.getBno();
 	}
 	
+	//게시물 삭제
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String getDelete(@RequestParam("bno") int bno) throws Exception {
+		
+		service.delete(bno);
+		
+		return "redirect:/board/list";
+	} // 게시물 삭제시 리턴으로 게시물 목록 페이지로 이동시킴
+	
 }
 

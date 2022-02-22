@@ -25,7 +25,10 @@
 		<c:forEach items="${list}" var="list">
 			<tr>
 				<td>${list.bno}</td>
-				<td>${list.title}</td>
+<!-- 링크 태그의 주소(href)는 /board/view?bno=[고유번호]가 되기 때문에, 주소의 파라미터값 컨트롤러에 전달할 수 있습니다. -->
+				<td>
+    				<a href="/board/view?bno=${list.bno}">${list.title}</a>
+				</td>
 				<td>${list.regDate}</td>
 				<td>${list.writer}</td>
 				<td>${list.viewCnt}</td>

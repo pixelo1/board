@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.board.dao.BoardDAO;
 import com.board.domain.BoardVO;
@@ -42,5 +43,22 @@ public class BoardController {
 		return "redirect:/board/list";
 		//모든 작업이 끝나면 게시물 목록 화면으로 이동시키는 리턴값
 	}
+	
+	//게시물 조회 조회라GET 사용
+	//@RequestParam([문자열])을 이용하면, 주소에 있는 특정한 값을 가져올 수 있다 
+	//위 스크린샷에서는 주소에서 bno를 찾아 그 값을 int bno에 넣어줍니다.
+	//BoardVO를 이용하여 서비스(service)에서 데이터를 받고, 모델(model)을 이용하여 뷰(view)에 데이터를 넘겨준다 
+	//이때, 넘겨주는 모델의 이름은 view
+	// 게시물 조회
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
+		
+		BoardVO vo = service.view(bno);
+		
+		model.addAttribute("view", vo);
+
+	}
+	
+	
 }
 

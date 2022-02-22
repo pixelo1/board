@@ -59,6 +59,25 @@ public class BoardController {
 
 	}
 	
+	//게시물 수정 (컨트롤러에 게시물 수정용 GET 메서드 추가)게시물 조회구현 메서드 그대로 이용
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
+		
+		BoardVO vo = service.view(bno);
+		
+		model.addAttribute("view", vo);
+	}
+	
+	//게시물 수정 post 메서드 추가 이거 없이해서 게시판에서 바로 수정 하면 405 에러남
+	//service.modify(vo); 에서 뷰에서 컨트롤러로 넘어온 데이터 (BoardVO)를 이용해 수정 한뒤
+	//return "redirect:/board/view?bno=" + vo.getBno(); 에서 현재 bno에 해당되는 조회 페이지로 이동됨
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String postModify(BoardVO vo) throws Exception {
+		
+		service.modify(vo);
+		
+		return "redirect:/board/view?bno=" + vo.getBno();
+	}
 	
 }
 

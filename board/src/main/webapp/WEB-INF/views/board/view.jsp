@@ -22,6 +22,10 @@ ${view.writer}<br />
 <label>내용</label>
 ${view.content}<br />
 
+<!-- 조회페이지 에서 수정 페이지로 이동할수있도록 view.jsp에 태그 추가 -->
+<div>
+<a href="/board/modify?bno=${view.bno}">게시물 수정</a>
+</div>
 <!-- <button type = "submit">작성</button>  주석처리로 작성버튼 숨김-->
 
 </body>

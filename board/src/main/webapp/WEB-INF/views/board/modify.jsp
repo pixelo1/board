@@ -7,6 +7,10 @@
 <title>게시물 수정</title>
 </head>
 <body>
+<div id = "nav">
+	<%@ include file = "../include/nav.jsp" %>
+</div>
+
 <form method="post">
 
 <label>제목</label>

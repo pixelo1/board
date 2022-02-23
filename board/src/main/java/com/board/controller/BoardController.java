@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.board.dao.BoardDAO;
 import com.board.domain.BoardVO;
+import com.board.domain.Page;
 import com.board.service.BoardService;
 
 
@@ -107,7 +107,34 @@ public class BoardController {
 	// 게시물 목록 + 페이징 추가
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
-	 
+	
+		// ctrl+shift+o(영어) 상단에 임포트됨 
+		Page page = new Page();
+
+		//Page에 현재 페이지인 num, 게시물 총 갯수인 service.count()를 넣어주면 클래스 내부에서 계산함
+		//계산된 데이터는 page.getDisplayPost() 처럼 호출하여 사용 가능  - 페이징 기능을 클래스로 분리하여 컨트롤러의 코드가 짧아짐
+		page.setNum(num);
+		page.setCount(service.count());
+		
+		List list = null;
+		list = service.listPage(page.getDisplayPost(), page.getPostNum());
+		
+		model.addAttribute("list", list);
+		
+		/*
+		model.addAttribute("pageNum", page.getPageNum());
+		
+		model.addAttribute("startPageNum", page.getStartPageNum());
+		model.addAttribute("endPageNum", page.getEndPageNum());
+		
+		model.addAttribute("prev", page.getPrev());
+		model.addAttribute("next", page.getNext());
+		아래 모델 page 추가로 Page class에서 데이터 끌어와 view로 전달 가능 */ 
+		model.addAttribute("page", page);
+		
+		model.addAttribute("select", num);
+	}
+		/* board.domain.page 에 페이징 관련 코드 정리 현재 페이징 관련 코드 주석처리
 	 // 게시물 총 갯수
 	 int count = service.count();
 	  
@@ -144,9 +171,9 @@ public class BoardController {
 	boolean next = endPageNum * pageNum_cnt >= count ? false : true;
 	
 	List list = null; 
-	 list = service.listPage(displayPost, postNum);
-	 model.addAttribute("list", list);   
-	 model.addAttribute("pageNum", pageNum);
+	list = service.listPage(displayPost, postNum);
+	model.addAttribute("list", list);   
+	model.addAttribute("pageNum", pageNum);
 	
 	//추가적으로 위에서 구한 시작과 끝번호, 이전과 다음 링크 표시를 뷰(view)에 출력하기 위해 모델(model)에 넣어줌
 	//시작 및 끝 번호
@@ -159,7 +186,7 @@ public class BoardController {
 	
 	// 현재 페이지
 	model.addAttribute("select", num);
-	
-}
+	*/
+
 }
 

@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물 목록 수정테스트 4번쨰</title>
+<!-- 테스트 할땐 주석으로 하기  -->
+<title>게시물 목록</title>
 </head>
 
 <body>

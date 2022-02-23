@@ -1,5 +1,6 @@
 package com.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,6 +50,25 @@ public class BoardDAOlmpl implements BoardDAO {
 	//게시물 삭제
 	public void delete(int bno) throws Exception {
 		sql.delete(namespace + ".delete", bno);
+	}
+	
+	//게시물 총 갯수 namespace 는 boardMapper 를 당겨옴 그 맵퍼 안에 count id 가진 것을 불러옴 
+	@Override
+	public int count() throws Exception {
+		return sql.selectOne(namespace + ".count");
+	}
+	
+	//게시물 목록 + 페이징 (매개변수 displayPost,postNum를 해시맵을 이용하여 하나로 그룹핑 한뒤 매퍼에 전송
+	//DAO와 매퍼에서는 데이터를 하나만 전송가능 하기때문에 2개이상 데이터 다룰 떄는 VO(Value Object)를 사용하거나 해시맵을 이용
+	@Override
+	public List listPage(int displayPost, int postNum) throws Exception {
+		
+		HashMap data = new HashMap();
+		
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		
+		return sql.selectList(namespace + ".listPage", data);
 	}
 
 }

@@ -88,5 +88,44 @@ public class BoardController {
 		return "redirect:/board/list";
 	} // 게시물 삭제시 리턴으로 게시물 목록 페이지로 이동시킴
 	
+	// 게시물 목록 + 페이징 추가
+	@RequestMapping(value = "/listpage", method = RequestMethod.GET)
+	public void getListPage(Model model) throws Exception {
+	  
+	 List list = null; 
+	 list = service.list();
+	 model.addAttribute("list", list);   
+	}
+	
+	
+	//게시물 목록 + 페이징 추가  매개변수로 num은 페이지 번호
+		//1. 게시물 총갯수를 구하고
+		//2. 한 페이지당 출력할 게시물 갯수를 정하고(10개)
+		//3. 하단에 표시할 페이징 번호의 갯루를 구하고(소수점은 올림)
+		//4. 현재 페이지를 기준으로 10개의 데이터를 출력한다
+	
+	// 게시물 목록 + 페이징 추가
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
+	 
+	 // 게시물 총 갯수
+	 int count = service.count();
+	  
+	 // 한 페이지에 출력할 게시물 갯수
+	 int postNum = 10;
+	  
+	 // 하단 페이징 번호 ([ 게시물 총 갯수 ÷ 한 페이지에 출력할 갯수 ]의 올림)
+	 int pageNum = (int)Math.ceil((double)count/postNum);
+	  
+	 // 출력할 게시물
+	 int displayPost = (num - 1) * postNum;
+	    
+	 List list = null; 
+	 list = service.listPage(displayPost, postNum);
+	 model.addAttribute("list", list);   
+	 model.addAttribute("pageNum", pageNum);
+	}
+	
+	
 }
 

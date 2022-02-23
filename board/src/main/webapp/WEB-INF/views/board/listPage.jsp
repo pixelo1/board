@@ -47,11 +47,40 @@
 </table>
 
 <div>
- <c:forEach begin="1" end="${pageNum}" var="num">
+<!-- 이전과 다음 링크가 조건문으로 들어가 있으며
+페이지 번호를 출력하는 반복문은 페이지 시작번호부터 페이지 마지막 번호까지만 출력 -->
+	<c:if test="${prev}">
+		<span>[ <a href="/board/listPage?num=${startPageNum - 1}">이전</a> ]</span>
+	</c:if>
+	
+	<c:forEach begin="${startPageNum}" end="${endPageNum}" var="num">
+		
+		<!-- 반복문 중간에 조건을 넣어서, select의 값이 num과 다를 경우 링크를 그대로 출력하고
+		select의 값이 num과 같을 경우 링크가 아닌 굵은 글자로 출력 -->		
+		<span>
+			
+			<c:if test="${select != num}">
+				<a href="/board/listPage?num=${num}">${num}</a>
+			</c:if>
+			
+			<c:if test="${select == num}">
+				<b>${num}</b>
+			</c:if>
+			
+		</span>
+	</c:forEach>
+	
+	<c:if test="${next}">
+		<span>[ <a href="/board/listPage?num=${endPageNum + 1}">다음</a> ]</span>
+	</c:if>
+	
+
+<%--무식한 페이지 번호 출력코드  
+<c:forEach begin="1" end="${pageNum}" var="num">
     <span>
      <a href="/board/listPage?num=${num}">${num}</a>
   </span>
- </c:forEach>
+ </c:forEach>--%>
 </div>
 
 </body>

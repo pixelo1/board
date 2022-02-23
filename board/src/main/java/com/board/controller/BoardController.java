@@ -119,13 +119,47 @@ public class BoardController {
 	  
 	 // 출력할 게시물
 	 int displayPost = (num - 1) * postNum;
-	    
-	 List list = null; 
-	 list = service.listPage(displayPost, postNum);
-	 model.addAttribute("list", list);   
-	 model.addAttribute("pageNum", pageNum);
+	
+	//한번에 표시할 페이징 번호의 갯수
+	int pageNum_cnt = 10;
+	
+	//표시되는 페이지 번호 중 마지막 번호구하는 식 
+	//num 는 현재 페이지 번호 8으로 가정 -> pageNum_cnt = 10 한번에 페이지 나올 개수 으로 나눔 -> ceil 소수점 올림 1됨 *10
+	int endPageNum = (int)(Math.ceil((double)num / (double)pageNum_cnt) * pageNum_cnt);
+	
+	//표시되는 페이지 번호 중 첫번째 번호
+	int startPageNum = endPageNum - (pageNum_cnt - 1);
+	
+	//마지막 번호 재계산  (올림)(현재페이지번호 / 한번에 표시할 페이지 번호의 갯수) * 한번에 표시할 페이지 번호의 갯수
+	int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
+	 
+	if(endPageNum > endPageNum_tmp) {
+	 endPageNum = endPageNum_tmp;
 	}
 	
 	
+	
+	//페이지 번호의 간격을 넘어가는 이전과 다음 링크의 표시
+	boolean prev = startPageNum == 1 ? false : true;
+	boolean next = endPageNum * pageNum_cnt >= count ? false : true;
+	
+	List list = null; 
+	 list = service.listPage(displayPost, postNum);
+	 model.addAttribute("list", list);   
+	 model.addAttribute("pageNum", pageNum);
+	
+	//추가적으로 위에서 구한 시작과 끝번호, 이전과 다음 링크 표시를 뷰(view)에 출력하기 위해 모델(model)에 넣어줌
+	//시작 및 끝 번호
+	model.addAttribute("startPageNum", startPageNum);
+	model.addAttribute("endPageNum", endPageNum);
+	
+	//이전 및 다음
+	model.addAttribute("prev", prev);
+	model.addAttribute("next", next);
+	
+	// 현재 페이지
+	model.addAttribute("select", num);
+	
+}
 }
 

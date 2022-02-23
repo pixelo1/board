@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물 목록</title>
+<title>게시물 목록 수정테스트</title>
 </head>
 
 <body>

@@ -188,5 +188,35 @@ public class BoardController {
 	model.addAttribute("select", num);
 	*/
 
+	
+	// 게시물 목록 + 페이징 추가  listPage 메서드 그대로 복붙 후 listPageSearch 로 내용만 변경 나머지 주석은 삭제처리
+	//매개 변수부에 @Requestparam searchType... 추가하야 URL을 통해 searchType(셀렉트 박스에서 가져오는 데이터)과 keyword(사용자가 입력한 검색어) 를 받아낼수 있도록 함
+	//@.. value 는 받고자할 데이터의 키, required 는 해당 데이터의 필수여부, defaultValue는 만약 데이터가 들어오지 않을경우 대신할 기본값 
+	//defaultValue 가 있으면 url에 해당 값이 없더라도 기본값을 지정할 수 있으므로 에러 발생안함
+	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
+	public void getListPageSearch(Model model, @RequestParam("num") int num,
+			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+			   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword
+			) throws Exception {
+	
+		// ctrl+shift+o(영어) 상단에 임포트됨 
+		Page page = new Page();
+
+		//Page에 현재 페이지인 num, 게시물 총 갯수인 service.count()를 넣어주면 클래스 내부에서 계산함
+		//계산된 데이터는 page.getDisplayPost() 처럼 호출하여 사용 가능  - 페이징 기능을 클래스로 분리하여 컨트롤러의 코드가 짧아짐
+		page.setNum(num);
+		page.setCount(service.count());
+		
+		// 기존 list 주석 처리후 입력 미리 작업한 service, dai, mapper에 사용될 데이터인 searchType,keyword가 들어있음
+		List<BoardVO> list = null; 
+		 //list = service.listPage(page.getDisplayPost(), page.getPostNum());
+		 list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		 
+		 model.addAttribute("list", list);
+		 model.addAttribute("page", page);
+		 model.addAttribute("select", num);
+		 
+		}
+	
 }
 

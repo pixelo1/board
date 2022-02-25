@@ -205,7 +205,14 @@ public class BoardController {
 		//Page에 현재 페이지인 num, 게시물 총 갯수인 service.count()를 넣어주면 클래스 내부에서 계산함
 		//계산된 데이터는 page.getDisplayPost() 처럼 호출하여 사용 가능  - 페이징 기능을 클래스로 분리하여 컨트롤러의 코드가 짧아짐
 		page.setNum(num);
-		page.setCount(service.count());
+		//page.setCount(service.count());
+		page.setCount(service.searchCount(searchType, keyword));
+		
+		//검색 타입과 검색어
+		//page.setSearchTypeKeyword(searchType, keyword);
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
+		
 		
 		// 기존 list 주석 처리후 입력 미리 작업한 service, dai, mapper에 사용될 데이터인 searchType,keyword가 들어있음
 		List<BoardVO> list = null; 
@@ -215,6 +222,9 @@ public class BoardController {
 		 model.addAttribute("list", list);
 		 model.addAttribute("page", page);
 		 model.addAttribute("select", num);
+		 
+		 //model.addAttribute("searchType", searchType);
+		 //model.addAttribute("keyword", keyword);
 		 
 		}
 	

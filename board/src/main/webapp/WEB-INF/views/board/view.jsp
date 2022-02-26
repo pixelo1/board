@@ -67,15 +67,19 @@ ${view.content}<br />
 	</ul>
 	
 	<div>
+	
+		<form method="post" action="/reply/write">
 		<p>
-			<label>댓글 작성자</label><input type="text">
+			<label>댓글 작성자</label><input type="text" name="writer">
 		</p>
 		<p>
-			<textarea row="5" cols="50"></textarea>
+			<textarea row="5" cols="50" name="content"></textarea>
 		</p>
 		<p>
-			<button type="button">댓글 작성</button>
+			<input type="hidden" name="bno" value="${view.bno}">
+			<button type="submit">댓글 작성</button>
 		</p>
+		</form>
 	</div>
 </body>
 </html>

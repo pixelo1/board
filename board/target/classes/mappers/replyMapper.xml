@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 기본코드 여기서 namespace 는 각각의 매퍼를 구분하는 고유명이 된다 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.reply">
+<!-- 댓글 조회는 게시물 번호(bno)만 이용하여 조회하되 결과는 ReplyVO의 형태로 반환되므로, 파라미터타입(parameterType)는 정수형(int)이며 리절트타입(resultType)은 ReplyVO입니다.
+
+댓글 작성/수정/삭제는 게시물 번호(bno)와 댓글 번호(rno)가 모두 필요하며
+, 추가적으로 작성자(writer), 댓글 내용(content), 작성 날짜(regDate)가 필요하며, 
+반환되는 데이터는 없으므로 파라미터타입은 ReplyVO, 리절트타입은 없습니다. -->
+
+
+	<!-- 댓글 조회 -->
+	<select id="replyList" parameterType="int" resultType="com.board.domain.ReplyVO">
+		select
+			rno, bno, writer, content, regDate
+		from tbl_reply
+			where bno = #{bno}
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite" parameterType="com.board.domain.ReplyVO">
+		insert into tbl_reply(bno, writer, content, regDate)
+			value(#{bno}, #{writer}, #{content}, #{regDate})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="com.board.domain.ReplyVO">
+		update tbl_reply set
+			writer = #{writer},
+			content = #{content}
+		where rno = #{rno}
+			and bno = #{bno}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="com.board.domain.ReplyVO">
+		delete from tbl_reply
+		where rno = #{rno}
+			and bno = ${bno}
+	</delete>
+		
+
+</mapper>
